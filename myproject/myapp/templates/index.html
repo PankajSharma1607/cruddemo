@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <!-- Bootstrap 5 CSS for base typography and resets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #333;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Styling the Search Form */
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #0d6efd;
+        }
+
+        button[type="submit"] {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0b5ed7;
+        }
+
+        h1 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #212529;
+            margin-bottom: 25px;
+        }
+
+        /* Table Styling - Targeting the border="1" attribute */
+        table[border="1"] {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: none !important;
+            /* Overriding the inline border attribute */
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Pagination Div Styling */
+        div {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+            color: #64748b;
+        }
+
+        div a {
+            text-decoration: none;
+            color: #0d6efd;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        div a:hover {
+            background-color: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+        }
+
+        /* Small responsive tweak */
+        @media (max-width: 600px) {
+            form {
+                flex-direction: column;
+            }
+
+            table[border="1"] {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HTML Content remains 100% identical to your source -->
+    <form method="GEt">
+        <input type="text" name="search" placeholder="search product" value="{{search}}">
+        <button type="submit">search</button>
+    </form>
+
+    <h1>list items</h1>
+
+    <table border="1">
+        <tr>
+            <th>Id </th>
+            <th>NAME</th>
+            <th>PRICE</th>
+        </tr>
+        {% for product in page_obj %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+
+    <div>
+        {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number}}">previous</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages}}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number}}"><i class="bi bi-caret-left-fill"></i>next</a>
+        <a href="?page={{ page_obj.paginator.num_pages}}">last</a>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
