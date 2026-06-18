@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "cruddemo-635a.onrender.com",
     "localhost",
     "127.0.0.1",
+    "*",
 ]
 
 
