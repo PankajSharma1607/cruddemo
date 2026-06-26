@@ -27,8 +27,12 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "localhost",
     "127.0.0.1",
+    "localhost",
+    "cruddemo-635a.onrender.com",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://cruddemo-635a.onrender.com",
 ]
 
 
