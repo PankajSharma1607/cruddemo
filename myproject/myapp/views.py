@@ -7,7 +7,7 @@ def product_list(request):
     if search:
         product_list=Product.objects.filter(name__icontains=search)
     else:
-        product_liproduct_list = Product.objects.all().order_by("id")
+        product_list = Product.objects.all().order_by("id")
 
     paginator=Paginator(product_list,5)  
     page_number=request.GET.get('page')
